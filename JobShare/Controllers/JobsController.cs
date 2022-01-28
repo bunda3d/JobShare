@@ -23,7 +23,7 @@ namespace JobShare.Controllers
     }
 
     // GET: Jobs
-    public async Task<IActionResult> Index(string jobDept, string searchString)
+    public async Task<IActionResult> Index(string jobDepartment, string searchString)
     {
       //use LINQ to get list of genres
       IQueryable<string> deptQuery = from d in _context.Job
@@ -37,9 +37,9 @@ namespace JobShare.Controllers
         jobs = jobs.Where(s => s.Title!.Contains(searchString));
       }
 
-      if (!string.IsNullOrEmpty(jobDept))
+      if (!string.IsNullOrEmpty(jobDepartment))
       {
-        jobs = jobs.Where(x => x.Department == jobDept);
+        jobs = jobs.Where(x => x.Department == jobDepartment);
       }
 
       var jobDeptVM = new JobDepartmentViewModel
