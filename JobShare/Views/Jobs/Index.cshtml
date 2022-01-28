@@ -1,0 +1,107 @@
+﻿@model IEnumerable<JobShare.Models.Job>
+
+@{
+    ViewData["Title"] = "Jobs";
+}
+
+<h1>Jobs</h1>
+
+@*@Html.ActionLink("Create New", "Create", new {
+  @class = "btn btn-success"
+}) *@
+<div class="row">
+  <div class="col-3">
+    <a asp-action="Create" class="btn btn-success my-2">Create New</a>
+  </div>
+  <div class="col-auto ms-auto">
+    <form asp-controller="Jobs" asp-action="Index" method="get">
+      <div class="row">
+        <div class="col-auto">
+          <input type="text" name="SearchString" class="form-control my-2" placeholder="Search Job Title" />
+        </div>
+        <div class="col-2">
+           <input type ="submit" value="Filter" class="btn btn-secondary my-2"/>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Code)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+@*            <th>
+                @Html.DisplayNameFor(model => model.SocialTitle)
+            </th>*@
+@*            <th>
+                @Html.DisplayNameFor(model => model.SocialDescription)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.ReleaseDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Department)
+            </th>
+@*            <th>
+                @Html.DisplayNameFor(model => model.HourlyPayBase)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HourlyPayMax)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SalaryBase)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SalaryMax)
+            </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+@*            <td>
+                @Html.DisplayFor(modelItem => item.SocialTitle)
+            </td>*@
+@*            <td>
+                @Html.DisplayFor(modelItem => item.SocialDescription)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.ReleaseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Department)
+            </td>
+@*            <td>
+                @Html.DisplayFor(modelItem => item.HourlyPayBase)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HourlyPayMax)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SalaryBase)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SalaryMax)
+            </td>*@
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
