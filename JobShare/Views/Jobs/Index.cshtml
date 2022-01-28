@@ -14,21 +14,24 @@
   <div class="col-3">
     <a asp-action="Create" class="btn btn-success my-2">Create New</a>
   </div>
+
+  <div class="col-auto">
+      <select asp-for="JobDepartment" asp-items="Model?.Departments" class="form-control my-2">
+        <option value="">All</option>
+      </select>
+  </div>
   <div class="col-auto ms-auto">
     <form asp-controller="Jobs" asp-action="Index" method="get">
       <div class="row">
-        <div class="col">
-          <select asp-for="JobDepartment" asp-items="Model.Departments">
-            <option value="">All</option>
-          </select>
 
-        </div>
-        <div class="col-auto">
-          <input type="text" name="SearchString" class="form-control my-2" placeholder="Search Job Title" />
-        </div>
-        <div class="col-2">
-           <input type ="submit" value="Filter" class="btn btn-secondary my-2"/>
-        </div>
+
+          <div class="col-auto">
+            <input type="text" name="SearchString" class="form-control my-2" placeholder="Search Job Title" />
+          </div>
+          <div class="col-2">
+             <input type ="submit" value="Filter" class="btn btn-secondary my-2"/>
+          </div>
+
       </div>
     </form>
   </div>
@@ -38,40 +41,40 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Code)
+                @Html.DisplayNameFor(model => model.Jobs[0].Code)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                @Html.DisplayNameFor(model => model.Jobs[0].Title)
             </th>
 @*            <th>
-                @Html.DisplayNameFor(model => model.SocialTitle)
+                @Html.DisplayNameFor(model => model.Jobs[0].SocialTitle)
             </th>*@
 @*            <th>
-                @Html.DisplayNameFor(model => model.SocialDescription)
+                @Html.DisplayNameFor(model => model.Jobs[0].SocialDescription)
             </th>*@
             <th>
-                @Html.DisplayNameFor(model => model.ReleaseDate)
+                @Html.DisplayNameFor(model => model.Jobs[0].ReleaseDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Department)
+                @Html.DisplayNameFor(model => model.Jobs[0].Department)
             </th>
 @*            <th>
-                @Html.DisplayNameFor(model => model.HourlyPayBase)
+                @Html.DisplayNameFor(model => model.Jobs[0].HourlyPayBase)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HourlyPayMax)
+                @Html.DisplayNameFor(model => model.Jobs[0].HourlyPayMax)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SalaryBase)
+                @Html.DisplayNameFor(model => model.Jobs[0].SalaryBase)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SalaryMax)
+                @Html.DisplayNameFor(model => model.Jobs[0].SalaryMax)
             </th>*@
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Jobs) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Code)
