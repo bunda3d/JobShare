@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using JobShare.Data;
 using JobShare.Models;
+using JobShare.Models.ViewModels;
 
 namespace JobShare.Controllers
 {
@@ -22,19 +23,48 @@ namespace JobShare.Controllers
     }
 
     // GET: Jobs
-    public async Task<IActionResult> Index(string searchString)
+    public async Task<IActionResult> Index(string jobDept, string searchString)
     {
-      var jobs = from j in _context.Job select j;
+      //use LINQ to get list of genres
+      IQueryable<string> deptQuery = from d in _context.Job
+                                     orderby d.Department
+                                     select d.Department;
+      var jobs = from d in _context.Job
+                 select d;
 
-      if (!String.IsNullOrEmpty(searchString))
+      if (!string.IsNullOrEmpty(searchString))
       {
         jobs = jobs.Where(s => s.Title!.Contains(searchString));
       }
 
-      //return View(await _context.Job.ToListAsync());
+      if (!string.IsNullOrEmpty(jobDept))
+      {
+        jobs = jobs.Where(x => x.Department == jobDept);
+      }
 
-      return View(await jobs.ToListAsync());
+      var jobDeptVM = new JobDepartmentViewModel
+      {
+        Departments = new SelectList(await deptQuery.Distinct().ToListAsync()),
+        Jobs = await jobs.ToListAsync()
+      };
+
+      return View(jobDeptVM);
     }
+
+    //// GET: Jobs
+    //public async Task<IActionResult> Index(string searchString)
+    //{
+    //  var jobs = from j in _context.Job select j;
+
+    //  if (!String.IsNullOrEmpty(searchString))
+    //  {
+    //    jobs = jobs.Where(s => s.Title!.Contains(searchString));
+    //  }
+
+    //  //return View(await _context.Job.ToListAsync());
+
+    //  return View(await jobs.ToListAsync());
+    //}
 
     // GET: Jobs/Details/5
     public async Task<IActionResult> Details(int? id)
